@@ -11,22 +11,24 @@ class LinkedList {
     this.head = null;
     this.tail = null;
   }
-  append = (node) => {
+  append = (value) => {
+    let newNode = new Node(value);
     if (!this.head && !this.tail) {
-      this.head = node;
-      this.tail = node;
+      this.head = newNode;
+      this.tail = newNode;
     } else {
-      this.head.nextNode = node;
-      this.head = node;
+      this.head.nextNode = newNode;
+      this.head = newNode;
     }
     this.length++;
   };
-  prepend = (node) => {
+  prepend = (value) => {
+    let newNode = new Node(value);
     if (!this.head) {
-      this.head = node;
+      this.head = newNode;
     }
-    node.nextNode = this.tail;
-    this.tail = node;
+    newNode.nextNode = this.tail;
+    this.tail = newNode;
     this.length++;
   };
   at = (index) => {
@@ -93,7 +95,7 @@ class LinkedList {
       stringList += ` (${currentNode.value}) ->`;
       currentNode = currentNode.nextNode;
     }
-    return console.log(stringList + ` (null)`);
+    return console.log(stringList + ` null`);
   };
   insertAt = (newNode, index) => {
     if (!this.head && !this.tail) {
@@ -140,14 +142,11 @@ class LinkedList {
   };
 }
 
-let data1 = new Node(5);
-let data2 = new Node(10);
-let data3 = new Node(20);
-
 let list = new LinkedList();
-list.append(data1);
-list.append(data2);
-list.append(data3);
-console.log(list);
-
-list.removeAt(2);
+list.append("dog");
+list.append("cat");
+list.append("parrot");
+list.append("hamster");
+list.append("snake");
+list.append("turtle");
+list.toString();
