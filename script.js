@@ -33,33 +33,33 @@ class LinkedList {
   };
   at = (index) => {
     if (!this.tail && !this.head) {
-      return console.log("The list is empty.");
+      return "The list is empty.";
     }
     if (index > this.length) {
-      return console.log(
-        `There is not that many data in the list.(The list contains ${this.length} elements)`,
-      );
+      return `There is not that many data in the list.(The list contains ${this.length} elements)`;
     }
     let currentNode = this.tail;
-    for (let i = index - 1; i > 0; i--) {
+    for (let i = 0; i < index; i++) {
       currentNode = currentNode.nextNode;
     }
-    return currentNode;
+    return currentNode.value;
   };
   pop = () => {
     if (!this.tail && !this.head) {
-      return console.log("The list is empty.");
+      return "The list is empty.";
     }
     let currentNode = this.tail;
+
     for (let i = 0; i < this.length - 2; i++) {
       currentNode = currentNode.nextNode;
     }
     currentNode.nextNode = null;
     this.head = currentNode;
+    this.length--;
   };
   contains = (value) => {
     if (!this.tail && !this.head) {
-      return console.log("The list is empty.");
+      return "The list is empty.";
     }
     let currentNode = this.tail;
     for (let i = 0; i < this.length; i++) {
@@ -72,7 +72,7 @@ class LinkedList {
   };
   find = (value) => {
     if (!this.tail && !this.head) {
-      return console.log("The list is empty.");
+      return "The list is empty.";
     }
     let index = 1;
     let currentNode = this.tail;
@@ -87,7 +87,7 @@ class LinkedList {
   };
   toString = () => {
     if (!this.tail && !this.head) {
-      return console.log("The list is empty.");
+      return "The list is empty.";
     }
     let currentNode = this.tail;
     let stringList = "";
@@ -95,21 +95,23 @@ class LinkedList {
       stringList += ` (${currentNode.value}) ->`;
       currentNode = currentNode.nextNode;
     }
-    return console.log(stringList + ` null`);
+    return stringList + ` null`;
   };
   insertAt = (newNode, index) => {
-    if (!this.head && !this.tail) {
-      this.head = node;
-      this.tail = node;
+    if (!this.tail && !this.head && index === 1) {
+      this.tail = newNode;
+      this.head = newNode;
+      return;
     }
-    if (index > this.length || index <= 1) {
-      return console.log(
-        `Can't insert at end/start of the list, use append or prepend for that`,
-      );
+    if (index > this.length + 1 || index < 0) {
+      return "Out of bound";
+    }
+    if (index === this.length || (index <= 0 && this.head && this.tail)) {
+      return `Can't insert at end/start of the list, use append or prepend for that.`;
     }
     let currentNode = this.tail;
 
-    for (let i = 1; i < index; i++) {
+    for (let i = 0; i < index; i++) {
       if (i === index - 1) {
         newNode.nextNode = currentNode.nextNode;
         currentNode.nextNode = newNode;
@@ -122,14 +124,15 @@ class LinkedList {
     if (!this.head && !this.tail) {
       return "theres no node to remove.";
     }
-    if (index > this.length) {
-      return console.log(`Can't remove at end of list, use pop for that`);
+    if (index === this.length) {
+      return `Can't remove at end of list, use pop for that`;
     }
     let currentNode = this.tail;
     if (this.length <= 1) {
       this.tail = null;
+      return;
     }
-    if (index === 1) {
+    if (index === 0 && list.length !== 1) {
       this.tail = this.tail.nextNode;
     }
     for (let i = 1; i < index; i++) {
@@ -140,8 +143,14 @@ class LinkedList {
     }
     this.length--;
   };
+  clear = () => {
+    list.head = null;
+    list.tail = null;
+    list.length = 0;
+  };
 }
 
 let list = new LinkedList();
+let nodeClass = Node;
 
-export { list };
+export { list, nodeClass };
